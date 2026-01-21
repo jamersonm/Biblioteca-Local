@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Banco de Dados (Melhor o usuário criar o dele ou rodar o script de init)
+*.db
+*.sqlite3
+
+# Sistema
+.DS_Store
+thumbs.db
