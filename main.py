@@ -7,6 +7,7 @@ from PIL import Image
 from database import BibliotecaDB
 
 # TELAS
+from telas.tela_home import TelaHome
 from telas.tela_cadastro import TelaCadastro
 # ----------------------------------------------------customtkinter
 
@@ -114,12 +115,12 @@ class App(ctk.CTk):
         self.main_frame = ctk.CTkFrame(self, fg_color="transparent")
         self.main_frame.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
 
-        self.show_cadastro()
+        self.show_home()
 
     def toggle_sidebar(self):
         if self.sidebar_expandida:
             # RECOLHER
-            self.sidebar.configure(width=60)
+            self.animar_sidebar(60)
             self.btn_menu.configure(text="")
             self.btn_home.configure(text="")
             self.btn_biblioteca.configure(text="")
@@ -131,7 +132,7 @@ class App(ctk.CTk):
             self.sidebar_expandida = False
         else:
             # EXPANDIR
-            self.sidebar.configure(width=160)
+            self.animar_sidebar(160)
             self.btn_menu.configure(text="Menu")
             self.btn_home.configure(text="Home")
             self.btn_biblioteca.configure(text="Biblioteca")
@@ -142,10 +143,24 @@ class App(ctk.CTk):
             self.btn_configuracoes.configure(text="Configurações")
             self.sidebar_expandida = True 
 
+    def animar_sidebar(self, largura_alvo):
+        largura_atual = self.sidebar.winfo_width()
+        passo = 30  # Quantos pixels a barra move por frame
+    
+        if abs(largura_atual - largura_alvo) > passo:
+            nova_largura = largura_atual + (passo if largura_alvo > largura_atual else -passo)
+            self.sidebar.configure(width=nova_largura)
+            # Chama a si mesmo após 10ms (gera o efeito de 60fps)
+            self.after(1, lambda: self.animar_sidebar(largura_alvo))
+        else:
+            self.sidebar.configure(width=largura_alvo)
+    
 
     def show_home(self):
-        # Placeholder para o catálogo
-        pass
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+        self.aba_home = TelaHome(self.main_frame, self.db)
+        self.aba_home.pack(fill="both", expand=True)
 
     def show_biblioteca(self):
         # Placeholder para o catálogo
