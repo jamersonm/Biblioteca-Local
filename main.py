@@ -9,6 +9,7 @@ from database import BibliotecaDB
 # TELAS
 from telas.tela_home import TelaHome
 from telas.tela_cadastro import TelaCadastro
+from telas.tela_biblioteca import TelaBiblioteca
 # ----------------------------------------------------customtkinter
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -163,7 +164,10 @@ class App(ctk.CTk):
         self.aba_home.pack(fill="both", expand=True)
 
     def show_biblioteca(self):
-        # Placeholder para o catálogo
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+        self.aba_biblioteca = TelaBiblioteca(self.main_frame, self, self.db)
+        self.aba_biblioteca.pack(fill="both", expand=True)
         pass
 
     def show_cadastro(self):
