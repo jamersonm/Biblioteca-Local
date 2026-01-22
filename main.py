@@ -167,10 +167,10 @@ class App(ctk.CTk):
         pass
 
     def show_cadastro(self):
-        #for widget in self.main_frame.winfo_children():
-        #    widget.destroy()
-        #self.aba_cadastro = TelaCadastro(self.main_frame, self.db)
-        #self.aba_cadastro.pack(fill="both", expand=True)
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+        self.aba_cadastro = TelaCadastro(self.main_frame, self.db)
+        self.aba_cadastro.pack(fill="both", expand=True)
         pass
 
     def show_estatisticas(self):

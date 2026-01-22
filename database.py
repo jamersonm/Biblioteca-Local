@@ -18,12 +18,17 @@ class BibliotecaDB:
             idioma TEXT,
             nacionalidade_autor TEXT,
             serie TEXT,
+            volume TEXT,
+            editora TEXT,
             paginas INTEGER,
             caminho_capa TEXT,
             genero TEXT,
             data_termino TEXT,
             preco REAL,
-            avaliacao INTEGER
+            avaliacao INTEGER,
+            status TEXT,
+            descricao TEXT,
+            comentarios TEXT
         )
         """
         self.cursor.execute(query)
@@ -37,8 +42,8 @@ class BibliotecaDB:
         query = """
         INSERT INTO livros (
             isbn, titulo, autor, ano_publicacao, idioma, nacionalidade_autor,
-            serie, paginas, caminho_capa, genero, data_termino, preco, avaliacao
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            serie, volume, editora, paginas, caminho_capa, genero, data_termino, preco, avaliacao, status, descricao, comentarios
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """
         # O uso de '?' previne SQL Injection, uma prática de segurança essencial
         self.cursor.execute(query, (
